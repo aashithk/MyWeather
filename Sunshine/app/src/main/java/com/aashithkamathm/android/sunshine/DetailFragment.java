@@ -62,6 +62,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             WeatherContract.WeatherEntry.COLUMN_HUMIDITY,
             WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,
             WeatherContract.WeatherEntry.COLUMN_PRESSURE,
+            WeatherContract.WeatherEntry.COLUMN_WEATHER_ID
 
     };
 
@@ -97,6 +98,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
          mDateView= (TextView) rootView.findViewById(R.id.detail_date);
          mforecastView = (TextView) rootView.findViewById(R.id.detail_forecast);
          miconView=(ImageView)  rootView.findViewById(R.id.list_item_icon);
+
 
 
 
@@ -178,6 +180,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATETEXT)));
         mDateView.setText(dateString);
 
+
+
+
         String weatherDescription =
                 data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_SHORT_DESC));
         mforecastView.setText(weatherDescription);
@@ -201,6 +206,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String day = Utility.getDayName(getActivity().getApplicationContext(),
                           data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATETEXT)));
         mDayView.setText(day);
+        miconView.setImageResource(Utility.getArtResourceForWeatherCondition(data.getInt(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID))));
+
 
         String pressure = " Pressure: "+data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
         mpressureView.setText(pressure);
